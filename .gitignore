@@ -1,4 +1,7 @@
-#
+# application
+app/controllers/components/oauth_consumers/twitter_consumer.php
+
+# database
 app/config/database.php
 
 # Cake cache

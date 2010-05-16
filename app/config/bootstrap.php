@@ -54,4 +54,6 @@ define('TWITTER_ACCESS_TOKEN_URL','http://twitter.com/oauth/access_token/');
 define('TWITTER_REQUEST_TOKEN_URL','http://twitter.com/oauth/request_token');
 define('TWITTER_AUTHORIZE_URL','http://twitter.com/oauth/authorize?oauth_token=');
 
+// google map
+define('GOOGLE_MAP_API_KEY', 'ABQIAAAAFeURWmHtAN5OQW9k_PsBHhRi_j0U6kJrkFvY4-OX2XYmEAa76BSqvcAjxg3l5DjeG3aLzHRs0mhk9w')
 ?>

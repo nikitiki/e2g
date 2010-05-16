@@ -13,7 +13,7 @@
  */
 class TwitterConsumer extends AbstractConsumer {
     public function __construct() {
-        parent::__construct('your_consumber_key','your_consumer_secret');
+        parent::__construct('mKM1vtQSQRTx5q8ssnhhIQ','ov3r1ren11y60pBwIa6RXhKjlwdJprvZE2qtQWJ4Q');
     }
 }
 ?>

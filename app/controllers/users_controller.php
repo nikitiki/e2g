@@ -15,7 +15,7 @@ class UsersController extends AppController
 {
    
 	var $name = "users";
-	var $layout = "ajax"; //Change this to match your layouts
+//	var $layout = "ajax"; //Change this to match your layouts
 	
 	function beforeFilter(){
 		$this->validateLoginStatus();
