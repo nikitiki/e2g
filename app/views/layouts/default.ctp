@@ -30,10 +30,18 @@
 //		echo $this->Html->css('cake.generic');
 
         // google map api
-        echo $javascript->link('http://maps.google.co.jp/maps?file=googleapi&v=2&key=' . GOOGLE_MAP_API_KEY );
+        echo $html->script('http://maps.google.co.jp/maps?file=googleapi&v=2&key=' . GOOGLE_MAP_API_KEY );
 
 		echo $scripts_for_layout;
 	?>
+
+<script type="text/javascript">
+//<![CDATA[
+
+    var REQUEST_URI = "<?php echo $REQUEST_URI ?>";
+
+//]]>
+</script>
 </head>
 <body>
 	<div id="container">
