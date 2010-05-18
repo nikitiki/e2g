@@ -14,7 +14,7 @@ class TopController extends AppController
 {
 
     var $name = 'top';
-    var $uses = array();
+    var $uses = array( 'marker' );
     var $helpers = array(
         'Javascript',
         'Ajax'
@@ -26,6 +26,7 @@ class TopController extends AppController
      */
     function index() {
 
+        $markers = $this->marker->find( 'all' );
 
     }
     // }}}
