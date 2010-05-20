@@ -1,7 +1,7 @@
 
 var map_canvas;
 
-var marker = null;
+var add_marker = null;
 
 // 
 function initialize() {
@@ -20,7 +20,6 @@ function initialize() {
         // アイコンの作成
         var markerIcon = new GIcon();
         markerIcon.image = REQUEST_URI + "img/users/m.jpg";
-//        markerIcon.image = "icon/green-dot.png";
         markerIcon.iconSize = new GSize( 40, 40 );
         markerIcon.iconAnchor = new GPoint( 24, 40 );
         markerIcon.infoWindowAnchor = new GPoint( 24, 18 );
@@ -32,42 +31,77 @@ function initialize() {
             icon : markerIcon
         };
 
-        var marker1 = new GMarker( init_pos, markerOpts );
+        // xmlをパース
+        var xml = GXml.parse( j_markers );
 
-        GEvent.addListener( marker1, "click", function(){
-            marker1.openInfoWindow( 'marker1' );
-        });
+        // タグ名がmarkerのノードを取得
+        var markers = xml.documentElement.getElementsByTagName("marker");
+
+        // markerの各子ノードを取得
+        for( var i = 0; i < markers.length; i++ ) {
+            var name    = markers[i].getAttribute( "name" );
+            var address = markers[i].getAttribute( "address" );
+
+            var point = new GLatLng(parseFloat(markers[i].getAttribute("lat")),
+                                    parseFloat(markers[i].getAttribute("lng")));
 
 
-        map_canvas.addOverlay( marker1 );
+            // マーカー設定
+            var marker = createMarker( point, markerIcon, name, address );
+
+            // キャンバスにマーカーを追加
+            map_canvas.addOverlay( marker );
+        }
     }
 }
 
+// {{{ onMapClicked
+// 追加したアイコンをクリックするとポップアップ表示
+// 
 function onMapClicked( overlay, latlang ) {
 
     // 地図がクリックされるとoverlayがnull
     if( overlay == null ) {
 
-        if( marker !== null ) map_canvas.removeOverlay( marker );
+        if( add_marker !== null ) map_canvas.removeOverlay( add_marker );
 
         // 
-        marker = new GMarker( latlang );
+        add_marker = new GMarker( latlang );
 
-        GEvent.addListener( marker, "click", function(){ 
+        GEvent.addListener( add_marker, "click", function(){ 
 
-            var txt = "緯度：" + marker.getLatLng().lat() + "<br />" +
-                      "経度：" + marker.getLatLng().lng();
+            var txt = "緯度：" + add_marker.getLatLng().lat() + "<br />" +
+                      "経度：" + add_marker.getLatLng().lng();
 
-            marker.openInfoWindowHtml(txt);
+            add_marker.openInfoWindowHtml(txt);
 
         });
 
-        map_canvas.addOverlay( marker );
+        map_canvas.addOverlay( add_marker );
 
-        document.getElementById('text_lat').value = marker.getLatLng().lat();
-        document.getElementById('text_lng').value = marker.getLatLng().lng();
+        document.getElementById('text_lat').value = add_marker.getLatLng().lat();
+        document.getElementById('text_lng').value = add_marker.getLatLng().lng();
     }
 }
+// }}}
+
+// {{{ createMarker
+//
+//
+function createMarker( point, icon, name, address ) {
+    var marker = new GMarker(point, icon );
+    var html = "<b>" + name + "</b> <br/>" + address;
+    GEvent.addListener(marker, 'click', function() {
+        marker.openInfoWindowHtml(html);
+    });
+    return marker;
+}
+// }}}
+
+
+// {{{
+// mapが移動したときAjaxで表示座行をサーバーに送る。表示した地図の画像を取得
+
 
 GEvent.addDomListener( window, "load", initialize );
 GEvent.addDomListener( window, "unload", GUnload );

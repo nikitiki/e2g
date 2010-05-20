@@ -1,3 +1,9 @@
+<?php echo $javascript->codeBlock("
+    // マーカー取得
+    var j_markers = $markers;
+", array( 'inline' => false )) 
+;?>
+
 <?php echo $this->addScript( $javascript->link('top/index.js') ) ?>
 Google mapを見せてくよ
 
@@ -13,3 +19,4 @@ Google mapを見せてくよ
 <input type="text" id="text_lng" name="lng" value="" />
 <br />
 <input type="file" name="picture" />
+
