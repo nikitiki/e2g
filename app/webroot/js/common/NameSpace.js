@@ -1,7 +1,7 @@
 /**
  * 名前空間ファイル
  * 
- * @author toshio tatemori @cypher-works.com
+ * @author @cypher-works.com
  */
 
 // {{{ NameSpace
