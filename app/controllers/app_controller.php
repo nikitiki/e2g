@@ -13,7 +13,6 @@ class AppController extends Controller {
 
     function beforeFilter() {
 
-        $this->set( 'REQUEST_URI', $_SERVER['REQUEST_URI'] );
         parent::beforeFilter();
 
     }

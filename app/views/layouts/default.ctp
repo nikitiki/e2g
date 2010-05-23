@@ -24,13 +24,36 @@
 	<title>
 		<?php echo $title_for_layout; ?>
 	</title>
+        <meta http-equiv="Cache-Control" content="no-cache">
 	<?php
 		echo $this->Html->meta('icon');
 
 //		echo $this->Html->css('cake.generic');
 
+        // jquery
+        echo "<!-- jQuery JS  -->\n";
+        echo $html->script( 'extjs/jquery-1.4.2.min' );
+        echo $html->script( 'extjs/jquery-ui-1.8.1.custom.min.js' );
+        echo $html->script( 'extjs/adapter/jquery/ext-jquery-adapter.js' );
+        echo "<!-- /jQuery JS -->\n";
+
+        // extjs
+        echo "<!-- Ext JS -->\n";
+        echo $html->script( 'extjs/ext-all.js' );
+        echo $html->script( 'extjs/src/locale/ext-lang-ja.js' );
+        echo "<!-- /Ext JS -->";
+
         // google map api
+        echo "<!-- MAP.GOOGLE.JS -->\n";
         echo $html->script('http://maps.google.co.jp/maps?file=googleapi&v=2&key=' . GOOGLE_MAP_API_KEY );
+        echo "<!-- /MAP.GOOGLE.JS -->\n";
+
+        // application
+        echo "<!-- Application -->\n";
+        echo $html->script( 'common/NameSpace.js' );
+        echo $html->script( 'common/App.js' );
+        echo $html->script( 'common/WindowUtil.js' );
+        echo "<!-- /Application -->\n";
 
 		echo $scripts_for_layout;
 	?>
@@ -38,7 +61,7 @@
 <script type="text/javascript">
 //<![CDATA[
 
-    var REQUEST_URI = "<?php echo $REQUEST_URI ?>";
+    var PROJECT_URI = "<?php echo $PROJECT_URI ?>";
 
 //]]>
 </script>
