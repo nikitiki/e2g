@@ -13,10 +13,10 @@
 
 App::import( 'Core', array( 'Xml' ) );
 
-class TopController extends AppController
+class DocosController extends AppController
 {
 
-    var $name = 'top';
+    var $name = 'docos';
     var $uses = array( 'marker' );
     var $helpers = array(
         'Js',
@@ -144,6 +144,13 @@ class TopController extends AppController
 
         $this->set( 'markers', $markers_string );
         $this->render( 'index' );
+    }
+    // }}}
+
+    // {{{
+    function add() {
+
+
     }
 
 }

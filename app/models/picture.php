@@ -6,7 +6,7 @@
 class Picture extends AppModel
 {
 
-    $name = 'pictures';
+   var $name = 'picture';
 
 }
 ?>

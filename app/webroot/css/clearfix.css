@@ -1,0 +1,51 @@
+@charset "utf-8";
+
+/* =======================================
+
+	ClearFixElements
+
+======================================= */
+div.clearfix:after,
+#header:after,
+#header #menu ul:after,
+#container:after,
+#contents:after,
+#header #menu ul:after,
+#left .leftbox .newentry:after,
+#left .leftbox .search .search_box:after,
+#right .search .search_box:after,
+#left .details_title:after,
+#left .details_title .profile:after,
+#left .details_small:after,
+#footer_in ul:after,
+#footer:after {
+	content: ".";
+	height: 0;
+	clear: both;
+	display: block;
+	visibility: hidden;
+}
+
+div.clearfix,
+#header,
+#header #menu ul,
+#container,
+#contents,
+#header #menu ul,
+#left .leftbox .newentry,
+#left .leftbox .search .search_box,
+#right .search .search_box,
+#left .details_title,
+#left .details_title .profile,
+#left .details_small,
+#footer_in ul,
+#footer {
+	display: inline-block;
+}
+
+div.clear {
+	clear:both;
+}
+div.clear hr {
+	display:none;
+} 

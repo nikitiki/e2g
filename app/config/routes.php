@@ -30,7 +30,8 @@
 
     // ルート
 //    Router::connect('/', array( 'controller' => 'users', 'action' => 'index' ));
-    Router::connect('/', array('controller' => 'top', 'action' => 'index'));
+    Router::connect('/', array('controller' => 'docos', 'action' => 'index'));
+
 
 /**
  * ...and connect the rest of 'Pages' controller's urls.

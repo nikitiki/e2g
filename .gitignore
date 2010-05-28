@@ -13,3 +13,7 @@ app/tmp/cache/queries/cake_*
 # Cake tmp dir
 app/tmp/logs/*.log
 app/tmp/sessions/*
+
+# backup
+*.back
+*.html

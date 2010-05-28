@@ -1,0 +1,273 @@
+@charset "utf-8";
+
+/* =======================================
+
+	CommonElements
+
+======================================= */
+
+/* ------------------------------------
+
+    left
+
+------------------------------------ */
+
+#left .leftbox {
+	background: url(../img/contents_bg.gif) repeat;
+	margin-top: 10px;
+}
+
+#left .small {
+	margin-top: 5px;
+}
+
+#left .leftbox .box_bottom {
+	background: transparent url(../img/contents_bottom.gif) no-repeat bottom left;
+}
+
+/* ------------------------------------
+
+    left_toppage
+
+------------------------------------ */
+
+#left .lead {
+	margin-top: 10px;
+}
+
+#left .leftbox .search {
+	padding: 20px 20px 5px 20px;
+}
+
+#left .leftbox .search .search_box {
+	width: 580px;
+	margin: 10px 0;
+}
+
+#left .leftbox .search .search_box input {
+	width: 380px;
+	height: 30px;
+	font-size: 24px;
+	float: left;
+	display: inline;
+}
+
+#left .leftbox .search .search_box .search_go {
+	margin-left: 10px;
+	float: left;
+	display: inline;
+}
+
+#left .leftbox .newentry {
+	padding: 20px 0 0 0;
+}
+
+#left .leftbox .entry_title {
+	margin: 0 0 0 20px;
+}
+
+#left .leftbox .newentry dl {
+	float: left;
+	display: inline;
+	width: 193px;
+	margin: 10px 0 15px 10px;
+}
+
+#left .leftbox .newentry dl dt img {
+	border: 3px #331713 solid;
+}
+
+#left .leftbox .search_title {
+	border-top: 1px #331713 solid;
+	font-size: 18px;
+	font-weight:bold;
+	color: #331713;
+	margin: 10px 10px 0 10px;
+	padding: 10px 0 0 0;
+}
+
+
+#left .leftbox .search_title span {
+	font-size: 14px;
+	font-weight:bold;
+}
+
+
+/* ------------------------------------
+
+    left_detailes
+
+------------------------------------ */
+
+#left .details_title {
+	width: 580px;
+	height: 90px;
+	position: relative;  
+	margin: 15px 20px 0 20px;
+	background: transparent url(../img/details_title_bg.gif) no-repeat top left;
+}
+
+#left .details_title .profile {
+	width: 480px;
+}
+
+#left .details_title .profile .profile_logo {
+	width: 73px;
+	float: left;
+	display: inline;
+	border: 1px solid #333;
+}
+
+#left .details_title .profile dl {
+	margin-left: 10px;
+	width: 395px;
+	float: left;
+	display: inline;
+}
+
+#left .details_title .profile dl dt {
+	font-size: 18px;
+}
+
+
+#left .details_title .view {
+	float: right;
+	display: inline;
+	text-align: center;
+	width: 80px;
+	color: #fff;
+	font-size:18px;
+	font-weight:bold;
+	margin-top:35px;
+}
+
+#left .store_pic {
+	margin-left: 10px;
+	width: 600px;
+	background-color: #331713;
+	text-align: center;
+}
+
+#left .store_pic img {
+	border: 3px #331713 solid;
+}
+
+#left .map {
+	margin: 10px 0 0 10px;
+	width: 594px;
+	height: 274px;
+	border: 3px #331713 solid;
+}
+
+
+
+#left .details_small {
+	width: 580px;
+	margin: 10px 20px 0 20px;
+}
+
+#left .details_small .number {
+	width: 17px;
+	height: 72px;
+	background-color: #e5655b;
+	color: #fff;
+	text-align:center;
+	vertical-align:middle;
+	float: left;
+	display: inline;
+	line-height: 72px;
+}
+
+#left .details_small .photo {
+	margin-left: 10px;
+	width: 72px;
+	height: 72px;
+	float: left;
+	display: inline;
+}
+
+#left .details_small dl {
+	margin-left: 10px;
+	width: 471px;
+	float: left;
+	display: inline;
+}
+
+
+/* ------------------------------------
+
+    right
+
+------------------------------------ */
+
+#right .rightbox {
+	background: url(../img/right_bg.gif) repeat;
+	margin-top: 10px;
+}
+
+#right .rightbox .box_bottom {
+	background: transparent url(../img/right_bottom.gif) no-repeat bottom left;
+}
+
+/* ------------------------------------
+
+    right_top
+
+------------------------------------ */
+
+#right .topentry {
+	width: 230px;
+	height: 182px;
+	margin-top:10px;
+	background: transparent url(../img/top_entry_bg.gif) no-repeat top left;
+}
+
+#right .topentry ul {
+	padding: 30px 0 0 30px;
+}
+
+#right .topentry ul li {
+	margin-bottom: 10px;
+}
+
+#right .rightbox .news {
+	padding: 20px 10px 0 10px;
+}
+
+#right .rightbox .news dl {
+	margin: 10px 0;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #3F120C;
+}
+
+#right .rightbox .news ul li {
+	margin: 10px 0;
+	border-bottom: 1px solid #3F120C;
+}
+
+
+/* ------------------------------------
+
+    right_detailes
+
+------------------------------------ */
+
+
+#right .search {
+	padding: 20px 20px 5px 20px;
+}
+
+#right .search .search_box {
+	width: 190px;
+	margin: 10px 0 7px 0;
+}
+
+#right .search .search_box input {
+	width: 170px;
+	height: 24px;
+	font-size: 24px;
+}
+
+#right .search .search_go {
+	margin-bottom: 15px;
+}

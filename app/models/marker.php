@@ -6,7 +6,7 @@
 class Marker extends AppModel
 {
 
-    var $name = 'markers';
+    var $name = 'marker';
 
     // パリデート定義
 
