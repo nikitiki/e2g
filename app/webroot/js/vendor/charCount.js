@@ -11,6 +11,8 @@
  *	Built for jQuery library
  *	http://jquery.com
  *
+ *  modify author @cypher-works.com
+ *  modify 2010-05-29
  */
  
 (function($) {
@@ -21,33 +23,31 @@
 		var defaults = {	
 			allowed: 140,		
 			warning: 25,
-			css: 'counter',
-			counterElement: 'span',
+            targetId: '#counter',
 			cssWarning: 'warning',
-			cssExceeded: 'exceeded',
-			counterText: ''
+			cssExceeded: 'exceeded'
 		}; 
 			
 		var options = $.extend(defaults, options); 
 		
 		function calculate(obj){
+            
 			var count = $(obj).val().length;
 			var available = options.allowed - count;
 			if(available <= options.warning && available >= 0){
-				$(obj).next().addClass(options.cssWarning);
+                $( options.targetId ).addClass( options.cssWarning );
 			} else {
-				$(obj).next().removeClass(options.cssWarning);
+                $( options.targetId ).removeClass( options.cssWarning );
 			}
 			if(available < 0){
-				$(obj).next().addClass(options.cssExceeded);
+                $( options.targetId ).addClass( options.cssExceeded );
 			} else {
-				$(obj).next().removeClass(options.cssExceeded);
+                $( options.targetId ).removeClass( options.cssExceeded );
 			}
-			$(obj).next().html(options.counterText + available);
+            $( options.targetId ).html( available );
 		};
 				
 		this.each(function() {  			
-			$(this).after('<'+ options.counterElement +' class="' + options.css + '">'+ options.counterText +'</'+ options.counterElement +'>');
 			calculate(this);
 			$(this).keyup(function(){calculate(this)});
 			$(this).change(function(){calculate(this)});

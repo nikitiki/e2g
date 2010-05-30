@@ -53,6 +53,8 @@
 }
 
 #left .leftbox .search .search_box .search_go {
+    width: 62px;
+    height: 34px;
 	margin-left: 10px;
 	float: left;
 	display: inline;
@@ -271,3 +273,13 @@
 #right .search .search_go {
 	margin-bottom: 15px;
 }
+
+/* -----------------------------------
+
+    form counter
+
+----------------------------------- */
+
+.warning{color:#600;}
+.exceeded{color:#e00;}
+

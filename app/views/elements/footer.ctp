@@ -1,7 +1,8 @@
 <div id="footer">
 <div id="footer_in">
-<img src="img/footer_logo.gif" alt="ココデタベター" width="191" height="41" class="logo" />
-
+    <?php e( $html->image( 'footer_logo.gif', 
+        array( 'width' => 191, 'height' => 41, 'class' => 'logo',
+            'alt' => 'ココデタベター' ) ) )?>
 <ul>
 <li><a href="">ココデタベターについて</a></li>
 <li><a href="">お問い合せ</a></li>

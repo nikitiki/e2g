@@ -12,9 +12,9 @@ $.extend( E2G.DocosCommon = {}, E2G.WindowUtil, {
 
         // twitter風
         $( "#text" ).charCount({
-            allowed: 100, // 
-            warning: 80,  //
-            counterText: 'Characters left: '
+            targetId: '#counter',
+            allowed: 100,
+            warning: 80 
         });
     }
 

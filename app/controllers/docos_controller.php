@@ -143,7 +143,6 @@ class DocosController extends AppController
         }
 
         $this->set( 'markers', $markers_string );
-        $this->render( 'index' );
     }
     // }}}
 

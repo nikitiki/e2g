@@ -24,6 +24,11 @@ $.extend( E2G.RootTop = {}, E2G.WindowUtil, {
         // ブラウザでGoogleマップが使用できるか判定
         if( GBrowserIsCompatible() ) {
 
+            // 地図生成判定
+//            if ( !$("body").is(":has('#map')") ) { 
+//                return;
+//            } 
+
             var init_pos  = new GLatLng( 35.658613, 139.745525 );
             var init_zoom = 15;
 

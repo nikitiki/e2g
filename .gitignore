@@ -17,3 +17,6 @@ app/tmp/sessions/*
 # backup
 *.back
 *.html
+
+# mac
+.DS_Stor
