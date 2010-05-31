@@ -70,7 +70,7 @@ class OauthConsumerComponent extends Object {
 		return $this->doPost($url, $request->to_postdata());
 	}
 	
-	private function createConsumer($consumerName) {
+	public function createConsumer($consumerName) {
 		$CONSUMERS_PATH = COMPONENTS.'oauth_consumers'.DS;
 		App::import('File', 'abstractConsumer', array('file' => $CONSUMERS_PATH.'abstract_consumer.php'));
 		

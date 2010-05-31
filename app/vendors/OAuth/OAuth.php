@@ -396,6 +396,35 @@ class OAuthRequest {/*{{{*/
   }/*}}}*/
 
 
+  /**
+   * builds the X-Verify-Credentials-Authorization: header
+   */
+  public function to_header_x_verify($realm=null) {
+    $first = true;
+    if($realm) {
+      $out = 'X-Verify-Credentials-Authorization: OAuth realm="' . OAuthUtil::urlencode_rfc3986($realm) . '"';
+      $first = false;
+    } else
+      $out = 'X-Verify-Credentials-Authorization: OAuth';
+
+    $total = array();
+    foreach ($this->parameters as $k => $v) {
+      if (substr($k, 0, 5) != "oauth") continue;
+      if (is_array($v)) {
+        throw new OAuthException('Arrays not supported in headers');
+      }
+      $out .= ($first) ? ' ' : ',';
+      $out .= OAuthUtil::urlencode_rfc3986($k) .
+              '="' .
+              OAuthUtil::urlencode_rfc3986($v) .
+              '"';
+      $first = false;
+    }
+    return $out;
+  }/*}}}*/
+
+
+
   public function sign_request($signature_method, $consumer, $token) {/*{{{*/
     $this->set_parameter("oauth_signature_method", $signature_method->get_name());
     $signature = $this->build_signature($signature_method, $consumer, $token);

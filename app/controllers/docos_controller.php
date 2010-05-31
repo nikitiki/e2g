@@ -17,7 +17,8 @@ class DocosController extends AppController
 {
 
     var $name = 'docos';
-    var $uses = array( 'marker' );
+    var $uses = array( 'marker', 'user' );
+    var $components = array( 'Twitpic' );
     var $helpers = array(
         'Js',
         'Form',
@@ -25,6 +26,9 @@ class DocosController extends AppController
     );
 
     // {{{ index
+    /**
+     * Top画面
+     */
     function index() {
 
         // 最新のマーカー情報取得
@@ -50,6 +54,9 @@ class DocosController extends AppController
     // }}}
 
     // {{{ search
+    /**
+     * 検索後表示画面
+     */
     function search() {
 
         // 画像データ返却用変数
@@ -151,6 +158,26 @@ class DocosController extends AppController
 
 
     }
+    // }}}
+
+    // {{{
+    function create() {
+
+        // POST only
+        if( !empty( $this->data ) ) {
+
+            // 明示的にパリデート処理
+
+            // TwitPicに保存処理開始
+            $json = $this->Twitpic->upload( $this->data['Picture'] );
+
+var_dump( $json );
+        }
+
+        // @TODO 暫定処理 後リダイレクト処理に変更
+        $this->render( 'add' );
+    }
+    // }}}
 
 }
 ?>

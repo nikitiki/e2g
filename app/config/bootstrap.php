@@ -64,4 +64,10 @@ define('GOOGLE_MAP_API_KEY', 'ABQIAAAAFeURWmHtAN5OQW9k_PsBHhRi_j0U6kJrkFvY4-OX2X
 define('LAT_BUFFER', 0.010460694518806794 );
 define('LNG_BUFFER', 0.02789497375489772 );
 
+// twitpic
+define('TWITPIC_API_KEY', 'bcd19d15439788af3a877374fad1c5d6' );
+define('TWITPIC_URL', 'http://api.twitpic.com/2/upload.json' );
+define('TWITTER_VERYFY_URL', 'https://api.twitter.com/1/account/verify_credentials.json');
+
+
 ?>
