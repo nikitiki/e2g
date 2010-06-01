@@ -26,10 +26,8 @@ class OauthController extends AppController
             $access_token_url = TWITTER_ACCESS_TOKEN_URL;
             $requestToken = $this->Session->read('requestToken');
             $accessToken = $this->OauthConsumer->getAccessToken($type,$access_token_url,$requestToken);
-            $accessToken->key;
             $accessKey = $accessToken->key;
             $accessSecret = $accessToken->secret;
-            
             if($accessToken!='' && $requestToken!='')
             {
                 //Fields returned from successful Twitter Oauth return.
@@ -83,7 +81,7 @@ class OauthController extends AppController
     
     //Helper function that retrieves info from Twitter on behalf of an authorized user.
     private function get_twitter_info($key,$secret){
-        $info = $this->OauthConsumer->get("twitter","https://twitter.com/account/verify_credentials.json",$key,$secret);
+        $info = $this->OauthConsumer->get("twitter","http://api.twitter.com/1/account/verify_credentials.json",$key,$secret);
         return json_decode($info);    
     }
 }

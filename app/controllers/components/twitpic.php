@@ -125,21 +125,15 @@ class TwitpicComponent extends Object
          curl_setopt($curl, CURLOPT_HEADER, false);
          curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
          curl_setopt($curl, CURLOPT_BINARYTRANSFER, true);
+         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
          // twitpic api
          curl_setopt($curl, CURLOPT_URL, $this->twitpic_url );
          // twitpic への投稿データ用
          curl_setopt($curl, CURLOPT_POST, true);
          curl_setopt($curl, CURLOPT_POSTFIELDS, $postdata );
-
          curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
 
          // 送信
-curl_setopt($curl, CURLOPT_VERBOSE, true);  // デバッグ
-$handle = fopen( CACHE . "/debug.txt", "w");
-curl_setopt($curl, CURLOPT_STDERR, $handle);
-$handle2 = fopen( CACHE . "/ret_header.txt", "w");
-curl_setopt($curl, CURLOPT_WRITEHEADER, $handle2);
-
          $result = curl_exec( $curl );
 
          if($result === false) {
@@ -148,9 +142,6 @@ curl_setopt($curl, CURLOPT_WRITEHEADER, $handle2);
              $json = json_decode($result);
          }
          curl_close($curl);
-fclose($handle2);
-fclose($handle);
-
 
          return $json;
     }
