@@ -8,20 +8,20 @@ class Marker extends AppModel
 
     var $name = 'marker';
 
-    // $B%Q%j%G!<%HDj5A(B
+    // パリデート定義
 
-    // {{{
+    // {{{ findExpand
     /**
-     *
+     * 表示されているより広い範囲で画像取得
      */
     function findExpand( $latLng= array() ) {
 
         $cond = array();
 
-        // $B8!:w>r7oDI2CH=Dj(B
+        // 検索条件追加判定
         if( !empty( $latLng ) ) {
 
-            // $B<hF@HO0O$N>r7oDI2C(B
+            // 取得範囲の条件追加
             $cond = array(
                 'conditions' => array(
                     'marker.lat >' => $latLng['lat_min'],
@@ -32,11 +32,13 @@ class Marker extends AppModel
             );
         }
 
-        // $BEj9F2hA|<hF@(B
+        // 投稿画像取得
         $markers = $this->find( 'all', array( 'conditions' => $cond['conditions'] ) );
 
         return $markers;
     }
+    // }}}
+
 
 }
 ?>

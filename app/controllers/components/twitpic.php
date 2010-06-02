@@ -53,7 +53,7 @@ class TwitpicComponent extends Object
      *
      * @param object $controller 呼び出し元コントローラー
      * @access public
-     * @return void
+     * @return mixed success: array / fail: false
      * @author @cypher-works.com
      */
     function startup( &$controller ) {
@@ -137,7 +137,8 @@ class TwitpicComponent extends Object
          $result = curl_exec( $curl );
 
          if($result === false) {
-             $json = 'Curl error: ' . curl_error($curl);
+             $json = false;
+             
          } else {
              $json = json_decode($result);
          }

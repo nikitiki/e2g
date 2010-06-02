@@ -41,6 +41,8 @@ class OauthConsumerComponent extends Object {
 
 		parse_str($data);
 		
+        if( !isset( $oauth_token ) ) $oauth_token = null;
+        if( !isset( $oauth_token_secret ) ) $oauth_token_secret = null;
 		return new OAuthToken($oauth_token, $oauth_token_secret);
 	}
 	

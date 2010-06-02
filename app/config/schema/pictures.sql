@@ -12,6 +12,8 @@ CREATE TABLE `pictures` (
   `timestamp` TIMESTAMP,
   `user_id` INT,
   `screen_name` VARCHAR( 30 ) ,
-  `type` VARCHAR( 30 )
+  `type` VARCHAR( 30 ),
+  `delete_flg` TINYINT DEFAULT 0,
+  `created` DATETIME 
 ) ENGINE = MYISAM ;
 

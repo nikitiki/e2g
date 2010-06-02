@@ -13,9 +13,9 @@ CREATE TABLE `users` (
   `oauth_key` varchar(100) character set utf8 collate utf8_unicode_ci NOT NULL,
   `oauth_secret` varchar(100) character set utf8 collate utf8_unicode_ci NOT NULL,
   `img` varchar(200) character set utf8 collate utf8_unicode_ci NOT NULL,
-  `location` varchar(100) character set utf8 collate utf8_unicode_ci NOT NULL,
+  `location` varchar(100) character set utf8 collate utf8_unicode_ci,
   `name` varchar(120) character set utf8 collate utf8_unicode_ci NOT NULL,
-  `description` text character set utf8 collate utf8_unicode_ci NOT NULL,
+  `description` text character set utf8 collate utf8_unicode_ci,
   `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `twitter_id` (`twitter_id`)

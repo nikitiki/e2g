@@ -1,6 +1,10 @@
 <?php e( $html->script( 'vendor/charCount.js' ) ) ?>
 <?php e( $html->script( 'docos/common.js' ) ) ?>
 
+
+<?php /* @TODO Growlで表示 */ ?>
+<?php echo $session->flash(); ?>
+
 <!--left-->
 <div id="left">
 

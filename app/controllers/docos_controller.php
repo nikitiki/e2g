@@ -17,37 +17,47 @@ class DocosController extends AppController
 {
 
     var $name = 'docos';
-    var $uses = array( 'marker', 'user' );
-    var $components = array( 'Twitpic' );
+    var $uses = array( 'picture', 'marker', 'user' );
+    var $components = array( 'OauthConsumer', 'Twitpic', 'Twitter' );
     var $helpers = array(
         'Js',
         'Form',
         'Xml'
     );
 
+    // {{{ veforeFilter
+    /**
+     * 初期処理
+     * セッションチェック
+     */
+    function beforeFilter() {
+
+        parent::beforeFilter();
+    }
+
     // {{{ index
     /**
-     * Top$B2hLL(B
+     * Top画面
      */
     function index() {
 
-        // $B:G?7$N%^!<%+!<>pJs<hF@(B
+        // 最新のマーカー情報取得
         $markers = $this->marker->find( 'all' );
 
-        // xml$B@_Dj(B
+        // xml設定
         $options = array(
-            'root' => 'markers',     // root$B%N!<%I(B
+            'root' => 'markers',     // rootノード
             'attributes' => false, 
             'format' => 'attributes'
         );
 
-        // xml$B%$%s%9%?%s%9:n@.(B
+        // xmlインスタンス作成
         $data = new Xml($markers, $options);
 
-        // xml$B$rJ8;zNs$KJQ49(B
+        // xmlを文字列に変換
         $markers_string = "'" . $data->toString( $options + array( 'header' => false) ) . "'";
 
-        // xml$B:n@.(B
+        // xml作成
         $this->set( 'markers', $markers_string );
 
     }
@@ -55,95 +65,95 @@ class DocosController extends AppController
 
     // {{{ search
     /**
-     * $B8!:w8eI=<(2hLL(B
+     * 検索後表示画面
      */
     function search() {
 
-        // $B2hA|%G!<%?JV5QMQJQ?t(B
+        // 画像データ返却用変数
         $markers_string = null;
 
         // POST
         if( !empty( $this->data ) &&
             $address = Set::extract( 'Marker.address', $this->data ) ) {
 
-            // UTF8$B$KJQ49(B
+            // UTF8に変換
 //            $address = mb_convert_encoding( $address, 'UTF-8', 'AUTO' );
 
-            // URL$B%(%s%3!<%I(B
+            // URLエンコード
 //            $address = urlencode( $address );
 
-            // $BAw?.%Q%i%a!<%?=i4|2=(B
+            // 送信パラメータ初期化
             $queries = array();
 
-            // $BAw?.%Q%i%a!<%?@8@.(B
+            // 送信パラメータ生成
             $queries['q']      = $address;
             $queries['key']    = GOOGLE_MAP_API_KEY;
             $queries['sensor'] = false;
             $queries['output'] = 'xml';
             $queries['gl']     = 'jp';
 
-            // $BAw?.(BURL$B@8@.(B
+            // 送信URL生成
             $url = 'http://maps.google.com/maps/geo?' . http_build_query( $queries );
 
-            // api$BAw?.(B
+            // api送信
             $xml = new Xml( $url );
 
-            // $B%*%V%8%'%/%H$rG[Ns$KJQ49(B
+            // オブジェクトを配列に変換
             $xml_array = Set::reverse( $xml );
 
-            // api$BDL?.$N%9%F!<%?%9%3!<%I$r<hF@(B
+            // api通信のステータスコードを取得
             $status_code = Set::extract( 'Kml.Response.Status.code', $xml_array );
 
-            // $B%8%*%3!<%G%#%s%0$,<hF@$G$-$F$$$l$P(B200
+            // ジオコーディングが取得できていれば200
             if( $status_code == "200" ) {
 
-                // $B%8%*%3!<%G%#%s%0<hF@(B
+                // ジオコーディング取得
                 $geocoding = Set::extract( 'Kml.Response.Placemark.Point.coordinates', $xml_array );
 
-                // $B0^EY!"7PEY!"9bEY$KJ,3d(B
+                // 緯度、経度、高度に分割
                 $geocoding = explode( ',', $geocoding );
 
-                // $B7PEY<hF@(B
+                // 経度取得
                 $lng = $geocoding[0];
 
-                // $B0^EY<hF@(B
+                // 緯度取得
                 $lat = $geocoding[1];
 
-                // $B2hA|<hF@>r7o3JG<JQ?t(B
+                // 画像取得条件格納変数
                 $conditions = array();
 
-                // $BI=<(HO0O!J$h$j$A$g$C$H9-$a!K$N0^EY$r<hF@(B
+                // 表示範囲（よりちょっと広め）の緯度を取得
                 $conditions['lat_min'] = (float)$lat - LAT_BUFFER;
                 $conditions['lat_max'] = (float)$lat + LAT_BUFFER;
 
-                // $BI=<(HO0O!J$h$j$A$g$C$H9-$a!K$N7PEY$r<hF@(B
+                // 表示範囲（よりちょっと広め）の経度を取得
                 $conditions['lng_min'] = (float)$lng - LNG_BUFFER;
                 $conditions['lng_max'] = (float)$lng + LNG_BUFFER;
 
-                // $B2hA|<hF@(B
+                // 画像取得
                 //$markers =  $this->marker->findExpand( $conditions );
                 $markers =  $this->marker->find( 'all' );
 
                 if( $markers ) {
 
-                    // xml$B@_Dj(B
+                    // xml設定
                     $options = array(
-                        'root' => 'markers',     // root$B%N!<%I(B
+                        'root' => 'markers',     // rootノード
                          'attributes' => false, 
                          'format' => 'attributes'
                     ); 
 
-                   // xml$B%$%s%9%?%s%9:n@.(B
+                   // xmlインスタンス作成
                    $data = new Xml($markers, $options);
 
-                    // xml$B$rJ8;zNs$KJQ49(B
+                    // xmlを文字列に変換
                     $markers_string = "'" . $data->toString( $options + array( 'header' => false) ) . "'";
 
                 }
             }
         }
 
-        // string$B$N6uJ8;z$r:n@.(B(view$B$G(Bjavascript$B$G%(%i!<$K$J$i$J$$$h$&$K(B)
+        // stringの空文字を作成(viewでjavascriptでエラーにならないように)
         if( empty( $markers_string ) ) {
 
             $markers_string =  "''";
@@ -153,9 +163,9 @@ class DocosController extends AppController
     }
     // }}}
 
-    // {{{
+    // {{{ add
+    // 登録入力画面
     function add() {
-
 
     }
     // }}}
@@ -166,15 +176,78 @@ class DocosController extends AppController
         // POST only
         if( !empty( $this->data ) ) {
 
-            // $BL@<(E*$K%Q%j%G!<%H=hM}(B
+            // 明示的にパリデート処理
 
-            // TwitPic$B$KJ]B8=hM}3+;O(B
-            $json = $this->Twitpic->upload( $this->data['Picture'] );
+            // TwitPicに保存処理開始
+            $twitpic = $this->Twitpic->upload( $this->data['Picture'] );
 
-var_dump( $json );
+            if( isset( $twitpic->errors ) ) {
+            // 保存処理失敗時
+                // @TODO ロールバック処理
+
+                // 登録失敗 登録画面に戻る
+                $this->_createFail();
+                return;
+
+            } else {
+
+                // トランザクション開始
+
+                // Pictureモデルに保存
+                if ( !$picture_id = $this->picture->save( $twitpic ) ) {
+                // 保存処理失敗
+                    // @TODO ロールバック処理
+
+                    // 登録失敗 登録画面に戻る
+                    $this->_createFail();
+                    return;
+                }
+
+                // Markerモデルに登録
+                $marker_data = $this->data['Marker'];
+                $marker_data['picture_id'] = $picture_id;
+                if( !$marker_id = $this->marker->save( $marker_data ) ) {
+
+                    // 登録失敗 登録画面に戻る
+                    $this->_createFail();
+                    return;
+                }
+
+                // twitterにつぶやき
+                // つぶやきパラメータセット
+                $options = array();
+                $status = $this->Twitter->status_update( 
+                    $twitpic, 
+                    $this->data['Marker'], 
+                    $options );
+
+                if( !$status ) {
+                    // @TODO ロールバック処理
+
+                    // 登録失敗 登録画面に遷移
+                    $this->_createFail();
+                    return;
+                }
+
+                // 登録成功文言セット
+                $this->Session->setFlash( __('登録が成功しました', true) );
+
+                // @TODO 詳細ページに遷移
+                $this->redirect( '/docos/index' );
+            }
         }
 
-        // @TODO $B;CDj=hM}(B $B8e%j%@%$%l%/%H=hM}$KJQ99(B
+        // @TODO 暫定処理 後リダイレクト処理に変更
+        $this->render( 'add' );
+    }
+    // }}}
+
+    // {{{ _createFail
+    private function _createFail() {
+
+        // エラー文言セット
+        $this->Session->setFlash( __('登録失敗しました。もう一度試してみて＞＜', true) );
+        // 登録画面に戻る
         $this->render( 'add' );
     }
     // }}}
