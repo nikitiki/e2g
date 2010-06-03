@@ -79,6 +79,48 @@ p {
 	border-bottom:1px dotted #331713;
 }
 
+.othersubtitle {
+	font-size: 140%;
+	font-weight: bold;
+	margin-bottom: 10px;
+	padding: 2px 0 1px 0;
+	color: #fff;
+	background-color: #331713;
+	width: 575px;
+	border-left: 5px solid #c30d23;
+	text-indent: 10px;
+	text-shadow: none;
+}
+
+.move {
+	margin-top: 10px;
+	padding: 20px 0 0 20px;
+	border-top: 1px dotted #331713;
+	font-weight: bold;
+	text-align: center;
+}
+
+.move a {
+	padding: 5px 7px 3px 7px;
+	background: #fff;
+	border: #333 1px solid;
+	line-height: 2em;
+}
+
+
+.move a.pn {
+	margin: 0 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.move a:link { text-decoration:none; color: #331713;}
+.move a:visited { text-decoration:none; color: #331713;}
+.move a:active { text-decoration:none; color: #331713;}
+.move a:hover,.move a.on { text-decoration:none; color: #fff;background: #331713;text-shadow: none;}
+
+*html .move a.on:visited { text-decoration:none; color: #fff;background: #331713;text-shadow: none;}
+
 
 /* ------------------------------------
 

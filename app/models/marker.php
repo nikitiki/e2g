@@ -8,6 +8,10 @@ class Marker extends AppModel
 
     var $name = 'marker';
 
+    var $belongsTo = 'Picture';
+
+    var $webroot  = null;
+
     // パリデート定義
 
     // {{{ findExpand
@@ -28,14 +32,40 @@ class Marker extends AppModel
                     'marker.lat <' => $latLng['lat_max'],
                     'marker.lng >' => $latLng['lng_min'],
                     'marker.lng <' => $latLng['lng_max']
+                ),
+/*
+                'fields' => array( 
+                    'marker.*',
+                    'picture.url as Marker.url' ),
+                'joins' => array(
+                    array( 'type'  => 'LEFT',
+                           'table' => 'pictures',
+                           'alias' => 'picture',
+                           'conditions' => "`marker`.`picture_id` = `picture`.`id`"
+                    )
                 )
+*/
             );
         }
 
         // 投稿画像取得
-        $markers = $this->find( 'all', array( 'conditions' => $cond['conditions'] ) );
+        $markers = $this->find( 'all', $cond );
 
-        return $markers;
+        if( !$markers ) {
+            return false;
+        }
+
+        // なんとかしたいこのアホな処理
+        // markerとpictureに配列が分かれるのが問題。
+        // pictureのカラムurlをmarkerの中で取得したい
+        $res = array();
+        foreach( $markers as $index => $marker ) {
+            $res[$index] = $marker;
+            $res[$index]['Marker']['url'] = TWITPIC_MINI . Set::extract( 'Picture.twitpic_id', $marker );
+            $res[$index]['Marker']['text'] = Set::extract( 'Picture.text', $marker );
+            $res[$index]['Marker']['view_url'] = KOKODE_URL . 'v/' . Set::extract( 'Picture.docos_id', $marker );
+        }
+        return $res;
     }
     // }}}
 

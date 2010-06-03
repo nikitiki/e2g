@@ -53,6 +53,7 @@ class TwitterComponent extends Object
         // status_updateに送信するパラメータセット
         $post_data = array();
         $post_data['status'] = $twitpic_data->text;
+// @TODO
         $post_data['status'] .= '  ' . $twitpic_data->url;
         $post_data['lat']    = $marker_data['lat'];
         $post_data['long']   = $marker_data['lng'];

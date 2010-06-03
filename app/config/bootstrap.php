@@ -49,9 +49,6 @@
  *
  */
 
-// host name
-define('PROJECT_URI', 'http://127.0.0.1/git/e2g/' );
-
 // twittr
 define('TWITTER_ACCESS_TOKEN_URL','http://twitter.com/oauth/access_token/');
 define('TWITTER_REQUEST_TOKEN_URL','http://twitter.com/oauth/request_token');
@@ -69,6 +66,9 @@ define('LNG_BUFFER', 0.02789497375489772 );
 define('TWITPIC_API_KEY', 'bcd19d15439788af3a877374fad1c5d6' );
 define('TWITPIC_URL', 'http://api.twitpic.com/2/upload.json' );
 define('TWITTER_VERYFY_URL', 'https://api.twitter.com/1/account/verify_credentials.json');
+define('TWITPIC_THUMB', 'http://twitpic.com/show/thumb/' );
+define('TWITPIC_MINI', 'http://twitpic.com/show/mini/' );
 
+// kokode
 
 ?>

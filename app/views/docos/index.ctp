@@ -45,40 +45,24 @@
         'class' => 'entry_title' ) ) ) ?>
     <br />
 
+    <?php /* 画像出力 */ ?>
+    <?php foreach( $pictures as $picture ): ?>
     <dl>
         <dt>
-         <?php e( $html->link( $html->image( 'sample.jpg', 
-             array( 'width' => 187, 'height' => 140 ) )
-             , array( 'controller' => 'docos', 'action' => 'view' )
+         <?php e( $html->link( $html->image( TWITPIC_THUMB. $picture['picture']['twitpic_id'], 
+             array( 'width' => 157, 'height' => 150 ) )
+/*             , array( 'controller' => 'docos', 'action' => 'view'
+                 ,'id' => $picture['picture']['docos_id'] )
+*/
+             , '/docos/v/' . $picture['picture']['docos_id']
              , array( 'escape' => false ) )
          ); ?>
         </dt>
-        <dd>from&nbsp;<a href="">tikitikipoo</a>
+        <dd>from&nbsp;
+            <a href=""><?php e( $picture['picture']['screen_name'] ) ?></a>
         </dd>
     </dl>
-    <dl>
-        <dt>
-         <?php e( $html->link( $html->image( 'sample.jpg', 
-             array( 'width' => 187, 'height' => 140 ) ) 
-             , array( 'controller' => 'docos', 'action' => 'view' )
-             , array( 'escape' => false ) ) 
-         ); ?>
-        </dt>
-        <dd>from&nbsp;<a href="">tikitikipoo</a>
-        </dd>
-    </dl>
-
-    <dl>
-        <dt>
-         <?php e( $html->link( $html->image( 'sample.jpg', 
-             array( 'width' => 187, 'height' => 140 ) ) 
-             , array( 'controller' => 'docos', 'action' => 'view' )
-             , array( 'escape' => false ) ) 
-         ); ?>
-        </dt>
-        <dd>from&nbsp;<a href="">tikitikipoo</a>
-        </dd>
-    </dl>
+    <?php endforeach; ?>
 </div>
 <!-- /newentry -->
 <div class="box_bottom">&nbsp;</div>
@@ -134,41 +118,7 @@
 <div class="box_bottom">&nbsp;</div>
 </div>
 
-<div class="twitter_badge">
-     <script src="http://widgets.twimg.com/j/2/widget.js"></script>
-      <script>
-      new TWTR.Widget({
-        version: 2,
-        type: 'search',
-        search: '#extjs',
-        interval: 6000,
-        title: 'tikitikipoo',
-        subject: 'tikitikipooタイムライン',
-        width: 'auto',
-        height: 200,
-        theme: {
-          shell: {
-            background: '#d3e73a',
-            color: '#331713'
-          },
-          tweets: {
-            background: '#ffffff',
-            color: '#333',
-            links: '#C10E24'
-          }
-        },
-        features: {
-          scrollbar: false,
-          loop: true,
-          live: true,
-          hashtags: true,
-          timestamp: true,
-          avatars: true,
-          behavior: 'default'
-        }
-      }).render().start();
-      </script>
-</div>
+<?php e( $this->element( 'twitter_badge' ) ) ?>
 
 </div>
 <!--／right-->

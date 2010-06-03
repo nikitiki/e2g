@@ -13,6 +13,7 @@ class AppController extends Controller {
 
     function beforeFilter() {
 
+        define( 'KOKODE_URL', 'http://' . env('HTTP_HOST') . $this->webroot );
         parent::beforeFilter();
 
     }

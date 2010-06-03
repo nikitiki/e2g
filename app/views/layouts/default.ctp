@@ -50,7 +50,7 @@
 <script type="text/javascript">
 //<![CDATA[
 
-    var PROJECT_URI = "<?php echo PROJECT_URI ?>";
+    var PROJECT_URI = "<?php e( KOKODE_URL ) ?>";
 
 //]]>
 </script>

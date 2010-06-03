@@ -3,7 +3,7 @@
 CREATE TABLE `pictures` (
   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `docos_id`  VARCHAR( 20 ) BINARY  NOT NULL,
-  `twipic_id` VARCHAR( 20 ) BINARY,
+  `twitpic_id` VARCHAR( 20 ) BINARY,
   `text` VARCHAR( 100 ),
   `url` VARCHAR( 40 ),
   `width` INT,

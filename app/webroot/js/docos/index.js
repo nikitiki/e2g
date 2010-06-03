@@ -29,7 +29,12 @@ $.extend( E2G.RootTop = {}, E2G.WindowUtil, {
 //                return;
 //            } 
 
-            var init_pos  = new GLatLng( 35.658613, 139.745525 );
+            // 中心地点取得 該当する住所がなかったら東京タワー
+            lat = ( lat === '' ) ? 35.658613 : lat;
+            lng = ( lng === '' ) ? 139.745525 : lng;
+
+            // 経度・緯度apiインスタンス生成
+            var init_pos  = new GLatLng( lat, lng );
             var init_zoom = 15;
 
             // 地図インスタンス生成
@@ -50,27 +55,8 @@ $.extend( E2G.RootTop = {}, E2G.WindowUtil, {
             // 概観地図
 //            this.map_canvas.addControl( new GOverviewMapControl() );
 
-            // クリック時マーカー追加設定
-            GEvent.addListener( this.map_canvas, "click", this.onMapClicked );
-
             // 地図キャンバス移動時イベント設定
             GEvent.addListener( this.map_canvas, 'moveend', this.onMapMoveend );
-
-            // 暫定処理マーカーアイコンに写真を表示できるかテスト
-            // アイコンの作成
-            var markerIcon = new GIcon();
-            markerIcon.image = PROJECT_URI + "img/users/m.jpg";
-            markerIcon.iconSize = new GSize( 40, 40 );
-            markerIcon.iconAnchor = new GPoint( 24, 40 );
-            markerIcon.infoWindowAnchor = new GPoint( 24, 18 );
-//             @TODO 影を作成
-//            markerIcon.shadow = "icon/shadow50.png";
-//            markerIcon.shadowSize = new GSize( 74, 68 );
-
-            // マーカーのオプション
-            var markerOpts = {
-                icon : markerIcon
-            };
 
             // xmlをパース
             var xml = GXml.parse( j_markers );
@@ -80,17 +66,18 @@ $.extend( E2G.RootTop = {}, E2G.WindowUtil, {
 
             // markerの各子ノードを取得
             for( var i = 0; i < markers.length; i++ ) {
-                var name    = markers[i].getAttribute( "name" );
-                var address = markers[i].getAttribute( "address" );
+                var address  = markers[i].getAttribute( "address" );
+                var img      = markers[i].getAttribute( "url" );
+                var text     = markers[i].getAttribute( "text" );
+                var view_url = markers[i].getAttribute( "view_url" );
 
                 var point = new GLatLng(parseFloat(markers[i].getAttribute("lat")),
                                         parseFloat(markers[i].getAttribute("lng")));
 
-console.log( markers[i] )
+console.log( markers[i] );
                 // マーカー設定
-                var marker = this.createMarker( point, markerIcon, name, address );
+                var marker = this.createMarker( point, img, text, view_url );
 
-console.log( marker );
                 // キャンバスにマーカーを追加
                 this.map_canvas.addOverlay( marker );
             }
@@ -106,71 +93,35 @@ console.log( marker );
     setKeyEvents : function() {
         var ref = this;
 
-        // 検索ボタン押下
-        $( "#search" ).bind( "click", function() {
-
-            // 検索値取得
-            var address = $( "#address" ).val();
-
-            if( address ) {
-
-                // ジオコーディング処理
-                ref.geocoder.getLatLng( address, ref.getGeocoding );
-            }
-        })
     },
 
     // {{{ createMarker
     /**
      * 初期表示時に登録画像をマーカーを追加する要領で表示
      */
-    createMarker : function( point, icon, name, address ) {
-        var marker = new GMarker(point, icon );
-        var html = "<b>" + name + "</b> <br/>" + address;
+    createMarker : function( point, img, text, view_url ) {
+
+        // アイコンの作成
+        var markerIcon = new GIcon();
+        markerIcon.image = img;
+        markerIcon.iconSize = new GSize( 50, 50 );
+        markerIcon.iconAnchor = new GPoint( 30, 40 );
+        markerIcon.infoWindowAnchor = new GPoint( 30, 25 );
+        // @TODO 影を作成
+        // markerIcon.shadow = "icon/shadow50.png";
+        // markerIcon.shadowSize = new GSize( 74, 68 );
+
+        // マーカーの作成
+        var marker = new GMarker(point, markerIcon );
+        var html = "<b>" + text + "</b> <br/>";
+        html += "<a href='" + view_url + "'>" + view_url + "</a>";
+console.log(html);
         GEvent.addListener(marker, 'click', function() {
             marker.openInfoWindowHtml(html);
         });
         return marker;
     },
     // }}}
-
-
-    // {{{ onMapClicked
-    // 追加したアイコンをクリックするとポップアップ表示
-    // 
-    onMapClicked : function( overlay, latlang ) {
-
-        // クラスオブジェクト取得
-        var ref = E2G.RootTop;
-
-        // 地図がクリックされるとoverlayがnull
-        if( overlay == null ) {
-
-            if( ref.add_marker !== null ) 
-                ref.map_canvas.removeOverlay( ref.add_marker );
-
-            // 
-            ref.add_marker = new GMarker( latlang );
-
-            GEvent.addListener( ref.add_marker, "click", function(){
-
-                var txt = "緯度：" + ref.add_marker.getLatLng().lat() + "<br />" +
-                          "経度：" + ref.add_marker.getLatLng().lng();
-
-                ref.add_marker.openInfoWindowHtml(txt);
-
-            });
-
-            // 地図にマーカーを描画
-            ref.map_canvas.addOverlay( ref.add_marker );
-
-            // 
-            document.getElementById('text_lat').value = ref.add_marker.getLatLng().lat();
-            document.getElementById('text_lng').value = ref.add_marker.getLatLng().lng();
-        }
-    },
-    // }}}
-
 
     // {{{
     /**
@@ -196,20 +147,9 @@ console.log( marker );
 
         // サーバーに位置情報を送る
 
-    },
-    // }}}
-
-
-    // {{{ getGeocoding
-    /**
-     *
-     */
-    getGeocoding : function( latlng ) {
-
-        // 
-console.log( latlng );
-
+console.log(span);
     }
+    // }}}
 
 });
 // }}}

@@ -1,7 +1,10 @@
 <script type="text/javascript">
 //<![CDATA[
+    // 検索結果
+    var lat = <?php e( $lat ) ?>;
+    var lng = <?php e( $lng ) ?>;
     // マーカー取得
-    var j_markers = <?php echo $markers ?>; 
+    var j_markers = <?php e( $markers ) ?>; 
 //]]>
 </script>
 
@@ -180,41 +183,7 @@
 </div>
 <!-- /rightbox -->
 
-<div class="twitter_badge">
-     <script src="http://widgets.twimg.com/j/2/widget.js"></script>
-      <script>
-      new TWTR.Widget({
-        version: 2,
-        type: 'search',
-        search: '#rapeco',
-        interval: 6000,
-        title: 'リアルタイムドコデタベター',
-        subject: 'ドコデタベター',
-        width: 'auto',
-        height: 200,
-        theme: {
-          shell: {
-            background: '#d3e73a',
-            color: '#331713'
-          },
-          tweets: {
-            background: '#ffffff',
-            color: '#333',
-            links: '#C10E24'
-          }
-        },
-        features: {
-          scrollbar: false,
-          loop: true,
-          live: true,
-          hashtags: true,
-          timestamp: true,
-          avatars: true,
-          behavior: 'default'
-        }
-      }).render().start();
-      </script>
-</div>
+<?php e( $this->element( 'twitter_badge' ) ) ?>
 
 </div>
 <!--／right-->

@@ -32,6 +32,21 @@ class DocosController extends AppController
      */
     function beforeFilter() {
 
+        // ログインチェックをするアクション
+        $deny = array( 'add', 'create' );
+
+        foreach( $deny as $action ) {
+            // 現在実行しているアクションがログインチェックするアクションか
+            if( Set::extract( 'action', $this->params ) == $action ) {
+                // セッションチェック
+                if($this->Session->check('User') == false)
+                {   
+                    $this->redirect( '/oauth/authorize/twitter'  );
+                    exit();
+                }
+            }
+        }
+
         parent::beforeFilter();
     }
 
@@ -40,6 +55,17 @@ class DocosController extends AppController
      * Top画面
      */
     function index() {
+
+        // 最新の投稿写真を取得
+        $cond = array(
+            'conditions' => array( 'picture.delete_flg !=' => 1 ),
+            'order' => array( 'picture.created desc' ),
+            'limit' => 9
+        );
+        $pictures = $this->picture->find( 'all', $cond );
+
+        // viewに投稿写真をセット
+        $this->set( 'pictures', $pictures );
 
         // 最新のマーカー情報取得
         $markers = $this->marker->find( 'all' );
@@ -55,10 +81,10 @@ class DocosController extends AppController
         $data = new Xml($markers, $options);
 
         // xmlを文字列に変換
-        $markers_string = "'" . $data->toString( $options + array( 'header' => false) ) . "'";
+        $markers_str = "'" . $data->toString( $options + array( 'header' => false) ) . "'";
 
         // xml作成
-        $this->set( 'markers', $markers_string );
+        $this->set( 'markers', $markers_str );
 
     }
     // }}}
@@ -69,8 +95,13 @@ class DocosController extends AppController
      */
     function search() {
 
-        // 画像データ返却用変数
-        $markers_string = null;
+        // stringの空文字を作成(viewでjavascriptでエラーにならないように)
+        // 画像データテンプレート用変数
+        $set_markers = "''";
+
+        // 経度・緯度テンプレートセット用変数
+        $set_lat= "''";
+        $set_lng = "''";
 
         // POST
         if( !empty( $this->data ) &&
@@ -115,9 +146,11 @@ class DocosController extends AppController
 
                 // 経度取得
                 $lng = $geocoding[0];
+                $set_lng = "'" . $lng . "'";
 
                 // 緯度取得
                 $lat = $geocoding[1];
+                $set_lat = "'" . $lat . "'";
 
                 // 画像取得条件格納変数
                 $conditions = array();
@@ -131,8 +164,8 @@ class DocosController extends AppController
                 $conditions['lng_max'] = (float)$lng + LNG_BUFFER;
 
                 // 画像取得
-                //$markers =  $this->marker->findExpand( $conditions );
-                $markers =  $this->marker->find( 'all' );
+                $markers =  $this->marker->findExpand( $conditions );
+//                $markers =  $this->marker->find( 'all' );
 
                 if( $markers ) {
 
@@ -147,19 +180,18 @@ class DocosController extends AppController
                    $data = new Xml($markers, $options);
 
                     // xmlを文字列に変換
-                    $markers_string = "'" . $data->toString( $options + array( 'header' => false) ) . "'";
+                    $set_markers = "'" . $data->toString( $options + array( 'header' => false) ) . "'";
 
+                } else {
+
+                    $this->Session->setFlash( __('該当する住所はありませんでした', true) );
                 }
             }
         }
 
-        // stringの空文字を作成(viewでjavascriptでエラーにならないように)
-        if( empty( $markers_string ) ) {
-
-            $markers_string =  "''";
-        }
-
-        $this->set( 'markers', $markers_string );
+        $this->set( 'markers', $set_markers );
+        $this->set( 'lat',     $set_lat );
+        $this->set( 'lng',     $set_lng );
     }
     // }}}
 
