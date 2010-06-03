@@ -5,14 +5,14 @@ app/controllers/components/oauth_consumers/twitter_consumer.php
 app/config/database.php
 
 # Cake cache
-app/tmp/cache/cake_*
-app/tmp/cache/models/cake_*
-app/tmp/cache/persistent/cake_*
-app/tmp/cache/queries/cake_*
+# app/tmp/cache/cake_*
+#app/tmp/cache/models/cake_*
+#app/tmp/cache/persistent/cake_*
+#app/tmp/cache/queries/cake_*
  
 # Cake tmp dir
 app/tmp/logs/*.log
-app/tmp/sessions/*
+#app/tmp/sessions/*
 
 # backup
 *.back
