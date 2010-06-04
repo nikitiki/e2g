@@ -56,7 +56,7 @@ define('TWITTER_AUTHORIZE_URL','http://twitter.com/oauth/authorize?oauth_token='
 define('TWITTER_UPDATE_STATUS', 'http://api.twitter.com/1/statuses/update.json');
 
 // google map
-define('GOOGLE_MAP_API_KEY', 'ABQIAAAAFeURWmHtAN5OQW9k_PsBHhRi_j0U6kJrkFvY4-OX2XYmEAa76BSqvcAjxg3l5DjeG3aLzHRs0mhk9w');
+define('GOOGLE_MAP_API_KEY', 'ABQIAAAAFeURWmHtAN5OQW9k_PsBHhRIURUGTDsKB38Tmmti96tbskGVBhSOc19u2nA4rF09yGO3BCfHLtnJyg');
 
 // geocoding取得範囲のbuffer
 define('LAT_BUFFER', 0.010460694518806794 );

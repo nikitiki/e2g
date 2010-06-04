@@ -54,7 +54,7 @@
 /*             , array( 'controller' => 'docos', 'action' => 'view'
                  ,'id' => $picture['picture']['docos_id'] )
 */
-             , '/docos/v/' . $picture['picture']['docos_id']
+             , '/v/' . $picture['picture']['docos_id']
              , array( 'escape' => false ) )
          ); ?>
         </dt>

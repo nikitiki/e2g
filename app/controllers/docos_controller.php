@@ -213,6 +213,7 @@ class DocosController extends AppController
             // TwitPicに保存処理開始
             $twitpic = $this->Twitpic->upload( $this->data['Picture'] );
 
+var_dump( $twitpic );
             if( isset( $twitpic->errors ) ) {
             // 保存処理失敗時
                 // @TODO ロールバック処理
@@ -283,6 +284,29 @@ class DocosController extends AppController
         $this->render( 'add' );
     }
     // }}}
+
+    // {{{ view
+    /**
+     * 詳細画面
+     */
+    function view( $docos_id = null ) {
+
+        // idなかったら404エラー画面へ
+        if( !$docos_id ) {
+            $this->Session->setFlash( __('存在しないURLです', true) );
+            $this->redirect( '/' );
+        }
+
+        // DBに存在しなかったら404エラー画面へ
+        if( !$picture = $this->picture->findByDocosId( $docos_id ) ) {
+            $this->Session->setFlash( __('存在しないURLです',true) );
+            $this->redirect( '/' );
+        }
+var_dump( $picture );
+
+        // 取得したつぶやきをviewにセット
+        $this->set( 'picture', $picture );
+    }
 
 }
 ?>
